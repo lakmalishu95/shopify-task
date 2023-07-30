@@ -1,0 +1,52 @@
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Form?"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background Color"
+    }
+  ]
+}
+{% endschema %}
+
+<header class="header">
+  <ul>
+    <img src=" {{ '1592422.png' | asset_url}} " style="width:100px">
+    <!-- Main menu -->
+    {% for link in linklists['main-menu'].links -%}
+      <li>{{ link.title | link_to: link.url }}</li>
+    {%- endfor %}
+  </ul>
+  {% if section.settings.show_search %}
+    <form action="/search">
+      <input type="search" name="q">
+      <button type="submit">search</button>
+    </form>
+  {% endif %}
+</header>
+
+<style>
+  .header {
+    background: {{section.settings.bg}}
+  }
+  header.logo.img {
+    {{section.settings.logo}}
+  }
+</style>
+
+{% stylesheet %}
+  .header {
+    padding:20px;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  console.log('hey from header')
+{% endjavascript %}
